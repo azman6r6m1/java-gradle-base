@@ -1,0 +1,15 @@
+pluginManagement {
+  repositories {
+    mavenCentral()
+    gradlePluginPortal()
+  }
+  plugins {
+    id "com.github.johnrengelman.shadow" version "${shadowPluginVersion}"
+    id "io.freefair.lombok" version "${lombokPluginVersion}"
+    id "org.beryx.runtime" version "${runtimePluginVersion}"
+    id "org.beryx.jlink" version "${jlinkPluginVersion}"
+    id "org.graalvm.buildtools.native" version "${graalvmNativePluginVersion}"
+  }
+}
+
+rootProject.name = "${projectName}"

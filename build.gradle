@@ -1,0 +1,86 @@
+import java.time.ZonedDateTime
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+
+plugins {
+  id "application"
+  id "java"
+//  id "com.github.johnrengelman.shadow"
+//  id "io.freefair.lombok"
+//  id "org.beryx.runtime"
+//  id "org.beryx.jlink"
+//  id "org.graalvm.buildtools.native"
+}
+
+group = "${projectGroup}"
+version = "${projectVersion}"
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+  testImplementation "org.testng:testng:${testNgVersion}"
+}
+
+java {
+  sourceCompatibility = 11
+  targetCompatibility = 11
+}
+
+jar {
+  manifest {
+    attributes(
+      //"Main-Class"             : "${mainClass}",
+      //"Class-Path"             : configurations.runtime.files.collect { it.name }.join(" "),
+      "Implementation-Title"   : "${projectTitle}",
+      "Implementation-Version" : "${projectVersion}",
+      "Implementation-Vendor"  : "${projectVendor}",
+      "Implementation-URL"     : "${projectUrl}",
+      "Build-Jdk"              : "${System.properties["java.version"]} (${System.properties["java.vendor"]} ${System.properties["java.vm.version"]})",
+      "Built-By"               : System.properties["user.name"],
+      "Built-On"               : DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(ZonedDateTime.now(ZoneId.systemDefault())),
+      "Created-By"             : "Gradle ${gradle.gradleVersion}"
+    )
+  }
+}
+
+javadoc {
+    source = sourceSets.main.allJava
+}
+
+application {
+  applicationName = "${projectName}"
+  mainClass = "${projectMainClass}"
+  applicationDefaultJvmArgs = []
+}
+
+test {
+  useTestNG()
+}
+
+//graalvmNative {
+//  binaries {
+//    main {
+//      imageName = "${projectName}"
+//      mainClass = "${projectMainClass}"
+//      debug = false
+//      verbose = false
+//      fallback = false
+//      sharedLibrary = false
+//    }
+//  }
+//}
+
+//runtime {
+//  options = ["--strip-debug", "--compress", "2", "--no-header-files", "--no-man-pages"]
+//  modules = []
+//}
+
+//jlink {
+//  options = ["--strip-debug", "--compress", "2", "--no-header-files", "--no-man-pages"]
+//  launcher{
+//    name = "hello-java"
+//  }
+//}

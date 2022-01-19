@@ -1,0 +1,17 @@
+# Ignore everything
+*
+
+# git files
+!.gitignore
+!.gitattributes
+!README.md
+!LICENSE
+
+# gradle files
+!build.gradle
+!settings.gradle
+!gradle.properties
+
+# source directory
+!/src
+!/src/**/*
